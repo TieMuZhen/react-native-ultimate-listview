@@ -59,6 +59,7 @@ export default class RefreshableScrollView extends ScrollView {
       date: this.props.date,
       showRefreshHeader: false
     }
+    this.onRefreshEnd()
   }
 
   async componentDidMount() {
@@ -180,15 +181,17 @@ export default class RefreshableScrollView extends ScrollView {
         showRefreshHeader: true
       })
       setTimeout(() => {
-        if (this._scrollview.scrollTo) {
+        if (this._scrollview && this._scrollview.scrollTo) {
           this._scrollview.scrollTo({ x: 0, y: this.props.refreshViewHeight, animated: true })
         }
         this.setState({
           refreshStatus: RefreshStatus.pullToRefresh,
-          refreshTitle: this.props.refreshableTitlePull,
           date: dateFormat(now, this.props.dateFormat)
         })
-      }, 1000)
+        setTimeout(() => {
+          this.setState({ refreshTitle: this.props.refreshableTitlePull })
+        }, 300)
+      }, 600)
 
       AsyncStorage.setItem(DATE_KEY, now.toString())
       Animated.timing(this.state.arrowAngle, {
