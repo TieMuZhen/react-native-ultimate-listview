@@ -173,7 +173,7 @@ export default class RefreshableScrollView extends ScrollView {
 
   onRefreshEnd = () => {
     // console.log('onRefreshEnd()');
-    if (this.state.refreshStatus === RefreshStatus.refreshing) {
+    // if (this.state.refreshStatus === RefreshStatus.refreshing) {
       this._isRefreshing = false
       const now = new Date().getTime()
       this.setState({
@@ -196,7 +196,7 @@ export default class RefreshableScrollView extends ScrollView {
         duration: 50,
         easing: Easing.inOut(Easing.quad)
       }).start()
-    }
+    // }
   }
 
   renderRefreshHeader() {
